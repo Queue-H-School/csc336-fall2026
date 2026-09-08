@@ -6,3 +6,7 @@
 \- clicking on words to link to other pages</br>
 \- HyperText Markup Language</br>
 
+<u>Document Object Model (DOM)</u></br>
+\- parses html</br>
+\- compare to SAX</br>
+
