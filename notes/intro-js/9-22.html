@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>9-22-2026</title>
+	</head>
+	<body>
+		<!-- give the script something to build from -->
+		<div id="root"></div>
+		<script>
+            // 1. get an element
+            let rootDiv = document.querySelector("#root");
+
+            // Pokemon example
+            let pokemon_names = ["Charzard", "Evie", "Pikachu", "Bulbasaur"];
+            let pokedex = [];
+
+            let pokemon = {};
+            pokemon.name = pokemon_names[2];
+            pokemon["name"] = "Pikachu"
+            pokemon.description = "lightning";
+            pokemon.img = "link";
+            pokedex.push(pokemon);
+
+            pokedex.push({
+                name: "Shroodle",
+                description: "poison teeth",
+                img: "link"
+            })
+
+            function addPokemonToRoot(pokemon) {
+                addHeadingtoElement(rootDiv, pokemon.name);
+            }
+
+            addPokemonToRoot(pokemon);
+
+
+            // 2. create element
+            let heading1 = document.createElement("h1");
+            heading1.innerHTML = "Hello World!";
+
+            // 3. add element to DOM
+            rootDiv.append(heading1);
+
+            // do the above programmatically
+            function addHeadingtoElement(element, text) {
+                let heading = document.createElement("h1");
+                heading.innerHTML = text;
+                element.append(heading);
+            }
+
+            // Call the function
+            addHeadingtoElement(rootDiv, "Next Heading");
+		</script>
+	</body>
+</html>
