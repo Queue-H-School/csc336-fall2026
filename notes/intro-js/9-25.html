@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>9-25-2026</title>
+	</head>
+	<body>
+		<div id="buttonDataDiv"></div>
+		<button id="testButton" onclick="buttonClicked(e)">Test</button>
+
+		<input id="inputBox" type="text">
+
+		<script>
+
+            let buttonDataDiv = document.querySelctory("#buttonDataDiv");
+
+            function buttonClicked(event) {
+                console.log(event);
+            }
+
+            let inputElement = document.querySelector("#inputBox");
+            if (inputElement.value === "PASSWORD") {
+                console.log("correct");
+            } else {
+                console.log("wrong");
+            }
+
+		</script>
+
+	</body>
+</html>

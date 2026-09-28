@@ -1,0 +1,35 @@
+
+h1 {
+    text-align: center;
+}
+
+#root {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+.main-image {
+    width: 50%;
+    height: auto;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.inventory {
+    display: block;
+}
+
+.inputDiv {
+    display: flex;
+}
+
+#inputBox {
+    height: 50%;
+    margin-left: 10px;
+    margin-top: 12px;
+}
