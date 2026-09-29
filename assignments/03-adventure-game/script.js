@@ -1,20 +1,15 @@
-let room_arr = [];
 let rootDiv = document.body.appendChild(document.createElement("div"));
 rootDiv.id = "root";
 
-let setUpRoom = function (rTitle, rClass) {
-    let roomDiv = document.createElement("div");
-    roomDiv.classList.add(rClass);
+// function Room(name, description, linkedRooms, roomSpecificActions) {
+//     this.name = name;
+//     this.description = description;
+//     this.linkedRooms = [];
+//     this.roomSpecificActions = roomSpecificActions;
+// }
 
-    // create and add title
-    let roomTitle = document.createElement("title");
-    roomTitle.innerHTML = rTitle;
-    roomDiv.appendChild(roomTitle);
+let getInventory = function () {
 
-    return roomDiv;
-}
-
-let inventoryDisplay = function (inventory) {
     let inventoryDiv = document.createElement("div");
     inventoryDiv.classList.add("inventory")
 
@@ -24,124 +19,129 @@ let inventoryDisplay = function (inventory) {
     inventoryDiv.appendChild(header);
 
     // iterate over inventory list and add as <p>
-    for (let i = 0; i < inventory.length; i++) {
+    for (let i = 0; i < currentInventory.length; i++) {
         let text = document.createElement("p");
-        text.innerHTML = inventory[i].number + " " + inventory[i].name;
+        text.innerHTML = currentInventory[i].number + " " + currentInventory[i].name;
         inventoryDiv.appendChild(text);
     }
 
     return inventoryDiv;
 }
 
-let optionDisplay = function (options) {
-    let optionDiv = document.createElement("div");
-    optionDiv.classList.add("option");
-
-    // create and append header
-    let header = document.createElement("h3");
-    header.innerHTML = "Would you like to:";
-    optionDiv.appendChild(header);
-
-    // iterate over option list and add as <p>
-    for (let i = 0; i < options.length; i++) {
-        let text = document.createElement("p");
-        text.innerHTML = options[i].number + ": " + options[i].text;
-        optionDiv.appendChild(text);
-    }
-
-    return optionDiv;
+let navButtonClicked = function () {
+    return generate(roomArr[this.id]);
 }
 
-let addInputBox = function (parentDiv) {
-    let inputDiv = document.createElement("div");
-    inputDiv.classList.add("inputDiv");
+let generate = function (room) {
+    // Clear out whatever room was previously visualized
+    rootDiv.innerHTML = "";
 
-    // create label
-    let label = document.createElement("p");
-    label.innerHTML = "Type your response here:";
-    inputDiv.appendChild(label);
+    let roomDiv = document.createElement("div");
 
-    // create input
-    let input = document.createElement("input");
-    input.setAttribute("type", "text");
-    input.id = "inputBox"
-    inputDiv.appendChild(input);
-
-    parentDiv.appendChild(inputDiv);
-}
-
-let clearRoom = function (room) {
-    rootDiv.removeChild(room.roomDiv);
-}
-
-function Room(name, description, tag, exits) {
-    this.name = name;
-    this.description = description;
-    this.roomDiv = setUpRoom(name, tag);
-    this.tag = tag;
-    this.exits = exits;
-}
-
-// all roads lead to r̶o̶m̶e̶ dysentery
-let dysentery = new Room("Dysentery", "You have died of dysentery.", "dysentery", []);
-
-// create dysentery room
-dysentery.generate = function () {
-    // set background
-    document.body.style.background = "#000000";
-
-    // add image
-    let dysenteryImg = new Image();
-    dysenteryImg.src = "./images/dysentery.jpg";
-    dysenteryImg.classList.add("main-image");
-    this.roomDiv.appendChild(dysenteryImg);
-
-    rootDiv.appendChild(this.roomDiv);
-};
-
-// beginning room
-let intro = new Room("Intro", "Welcome to the Oregon Trail!", "intro", [])
-
-// create intro "room"
-intro.generate = function () {
-    rootDiv = document.querySelector("#root");
-    let roomDiv = setUpRoom("Intro", "intro");
+    // heading
+    let roomTitle = document.createElement("h1");
+    roomTitle.innerHTML = room.name;
+    roomDiv.append(roomTitle);
 
     // inventory
-    let inventoryList = [{number: 3, name: "Oxen"},
-        {number: 4, name: "Party Members"},
-        {number: 7, name: "Days of Food"},
-        {number: 1, name: "Weapons"}];
-    let inventoryDiv = inventoryDisplay(inventoryList);
+    let inventoryDiv = getInventory(room);
     roomDiv.appendChild(inventoryDiv);
 
-    // options
-    let beginTrail = function () {
-        clearRoom(this)
-        dysentery.generate();
-    }
-    let optionsList = [{number: 1, text: "Begin the trail!", action: beginTrail}];
+    // description text
+    let descriptionP = document.createElement("p");
+    descriptionP.innerHTML = room.description;
+    roomDiv.append(descriptionP);
 
-    let optionDiv = optionDisplay(optionsList);
-    roomDiv.appendChild(optionDiv);
+    // run room specific actions
+    room.roomSpecificActions(roomDiv);
 
-    // add input box
-    addInputBox(roomDiv);
-
-    // test input
-    let inputBox = document.querySelector("#inputBox");
-    while (inputBox != null && inputBox.value != null) {
-        console.log(inputBox.value);
-        // iterate over options list
-        for (let i = 0; i < optionsList.length; i++) {
-            if (optionsList[i].number === inputBox.value) {
-                optionsList[i].action();
-            }
-        }
+    // display choices/nav to next room
+    for (let i = 0; i < room.linkedRooms.length; i++) {
+        let navButton = document.createElement("button");
+        navButton.innerHTML = room.linkedRooms[i].display;
+        navButton.id = room.linkedRooms[i].roomName;
+        navButton.addEventListener("click", navButtonClicked);
+        // Note the missing parentheses: we hand the function itself to
+        // addEventListener, we do not call it here.
+        roomDiv.append(navButton);
     }
 
     rootDiv.appendChild(roomDiv);
-};
-intro.generate();
+}
+
+// set up inventory
+let currentInventory = {
+    oxen: {number: 3, name: "Oxen"},
+    party: {number: 4, name: "Party Members"},
+    food: {number: 21, name: "Days of Food"},
+    weapons: {number: 1, name: "Weapons"}
+}
+
+// initialize and describe rooms
+let roomArr = {
+    intro: {
+        name: "Welcome to the Oregon Trail!",
+        description: "Would you like to play?",
+        linkedRooms: [{roomName: "fightScene", display: "Yes"}, {roomName: "dysentery", display: "No"}],
+        roomSpecificActions: function (roomDiv) {
+            return null;
+        }
+    },
+    // all roads lead to r̶o̶m̶e̶ dysentery
+    dysentery: {
+        name: "dysentery",
+        description: "You have died of dysentery.",
+        linkedRooms: [],
+        roomSpecificActions: function (roomDiv) {
+            // set background
+            document.body.style.background = "#000000";
+
+            // add image
+            let dysenteryImg = new Image();
+            dysenteryImg.src = "./images/dysentery.jpg";
+            dysenteryImg.classList.add("main-image");
+            roomDiv.append(dysenteryImg);
+        }
+    },
+    fightScene: {
+        name: "Fight Scene",
+        description: "Some highwaymen have come to rob your party of your supplies! What do you do?",
+        linkedRooms: [{roomName: "dysentery", display: "Try to outtrun them"}, {
+            roomName: "riverCrossing", display: "Stay and fight"
+        }],
+        roomSpecificActions: function (roomDiv) {
+            return null;
+        }
+    },
+    riverCrossing: {
+        name: "River Crossing",
+        description: "The water is high and fast. How will you navigate the obstacle?",
+        linkedRooms: [{roomName: "dysentery", display: "idk"}, {
+            roomName: "insufficientSupplies",
+            display: "Wait for calmer waters"
+        }],
+        roomSpecificActions: function (roomDiv) {
+            currentInventory["weapons"].number--;
+        }
+    },
+    insufficientSupplies: {
+        name: "Insufficient Supplies",
+        description: "Winter is coming, but your party is low on food and water. What do you do?",
+        linkedRooms: ["dysentery", "success"],
+        roomSpecificActions: function (roomDiv) {
+            return null
+        }
+    },
+    success: {
+        name: "Success",
+        description: "Congratulations! You have reached the Willamette Valley.",
+        linkedRooms: [],
+        roomSpecificActions: function (roomDiv) {
+            return null;
+        }
+    }
+}
+
+generate(roomArr["intro"]);
 
 
