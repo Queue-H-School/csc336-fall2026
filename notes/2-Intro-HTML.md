@@ -1,32 +1,32 @@
 # Lecture 2: HTML and CSS #
 
-<u>Hypertext</u></br>
-*Ted Nelson and Nevadvar?? Bush*</br>
-\- Linking structure succeeds a (strict) tree structure</br>
-\- clicking on words to link to other pages</br>
-\- HyperText Markup Language</br>
+<u>Hypertext</u>
+*Ted Nelson and Nevadvar?? Bush*
+\- Linking structure succeeds a (strict) tree structure
+\- clicking on words to link to other pages
+\- HyperText Markup Language
 
-<u>Document Object Model (DOM)</u></br>
-\- parses html</br>
-\- compare to SAX</br>
+<u>Document Object Model (DOM)</u>
+\- parses html
+\- compare to SAX
 
-<pre>
+
+```markdown-tree
 document object model
-└── html
-    ├── head
-    │   └── title
-    └── body
-        ├── p
-        │   └── text
-        ├── div
-        │   ├── text
-        │   └── img
-        └── div
-            ├── text
-            └── span
-</pre>
+	html
+		head
+			title
+			script
+		body
+			div
+				p
+				img
+			div
+				p
+				span
+```
 
-### CSS Demo: ###
+## CSS Demo: ##
 
 ```html
 <!DOCTYPE html>
@@ -48,7 +48,7 @@ document object model
 
 ![css_padding-4041656775.webp](images/css_padding-4041656775.webp)
 
-<u>Stylesheet</u></br>
-\- tag: no special formatting</br>
-\- class="classname": .classname</br>
-\- id="idtag": #idtag</br>
+<u>Stylesheet</u>
+\- tag: no special formatting
+\- class="classname": .classname
+\- id="idtag": #idtag
