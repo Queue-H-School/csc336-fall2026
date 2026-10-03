@@ -1,3 +1,6 @@
+// This was written by Prof Treanor and copied from his github
+// https://github.com/mtreanor/csc336-fall2026
+
 // Plain function, called the normal way. Nothing to see here yet.
 function sayHello() {
     console.log("Hello");

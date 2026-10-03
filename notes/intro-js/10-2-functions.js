@@ -1,24 +1,33 @@
+// This was written by Prof Treanor and copied from his github
+// https://github.com/mtreanor/csc336-fall2026
+
+
 // FUNCTIONS: from the function keyword down to a one-line arrow
 
 // 1. A "normal" function definition
 function getExcited1(str) {
     return str + "!!!";
 }
+
 console.log("1. " + getExcited1("Hello"));
 
 // 2. Function as "variable". The function has no name of its own, it's a
 // value stored in a variable, the same way a number or string would be.
-let getExcited2 = function(str) {
+let getExcited2 = function (str) {
     return str + "!!!";
 }
 console.log("2. " + getExcited2("Hello"));
 
 // 2.5. Same thing on one line. Line breaks don't matter to JavaScript.
-let getExcited2_5 = function(str) { return str + "!!!" };
+let getExcited2_5 = function (str) {
+    return str + "!!!"
+};
 console.log("2.5 " + getExcited2_5("Hello"));
 
 // 3. Arrow function. Drop the word function, add => after the parameters.
-let getExcited3 = (str) => { return str + "!!!" };
+let getExcited3 = (str) => {
+    return str + "!!!"
+};
 console.log("3. " + getExcited3("Hello"));
 
 // 3.5. Minimized arrow function (one argument, one line of code).
@@ -45,25 +54,33 @@ function makeButton(text) {
 // 1. Named function, handed to addEventListener by name (no parentheses:
 // we're handing the function over, not calling it).
 let button1 = makeButton("1. Named function");
+
 function clicked() {
     console.log("CLICKED 1");
 }
+
 button1.addEventListener("click", clicked);
 
 // 2.5. Function stored in a variable, handed over the same way.
 let button2_5 = makeButton("2.5. Function in a variable");
-let clicked2_5 = function() { console.log("CLICKED 2.5"); }
+let clicked2_5 = function () {
+    console.log("CLICKED 2.5");
+}
 button2_5.addEventListener("click", clicked2_5);
 
 // 3. Anonymous function, written right where it's handed over.
 // No name and no variable: addEventListener is the only thing that has it.
 let button3 = makeButton("3. Anonymous function");
-button3.addEventListener("click", function() { console.log("CLICKED 3"); });
+button3.addEventListener("click", function () {
+    console.log("CLICKED 3");
+});
 
 // 3. Anonymous arrow function. The browser always passes in an event, we
 // just aren't using it here.
 let button3_arrow = makeButton("3. Anonymous arrow function");
-button3_arrow.addEventListener("click", (event) => { console.log("CLICKED 3 (arrow)") });
+button3_arrow.addEventListener("click", (event) => {
+    console.log("CLICKED 3 (arrow)")
+});
 
 // 3.5. Minimized arrow function (one argument, one line of code).
 let button3_5 = makeButton("3.5. Minimized arrow function");
@@ -106,7 +123,7 @@ console.log("sorted (short version): " + numbers);
 // MAP: calls our function once per element and builds a new array out of
 // whatever it returns. The original array is left alone.
 
-let doubledNumbers1 = numbers.map(function(element) {
+let doubledNumbers1 = numbers.map(function (element) {
     return element * 2
 });
 console.log("doubled (function): " + doubledNumbers1);
