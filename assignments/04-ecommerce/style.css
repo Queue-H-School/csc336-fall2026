@@ -21,13 +21,28 @@ img {
     border: 2px solid darkgreen;
 }
 
+select {
+    font-family: Verdana, sans-serif;
+    background-color: darkseagreen;
+    border: 1px solid darkgreen;
+    font-weight: 500;
+    color: black;
+    border-radius: 5px;
+    padding: 0.5em 0.75em;
+}
+
+select:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
 /* From Uiverse.io by cssbuttons-io */
 button {
     font-family: Verdana, sans-serif;
     position: relative;
     padding: 0.5em 0.75em;
     cursor: pointer;
-    border-radius: 6em;
+    border-radius: 5px;
     transition: all 0.2s;
     border: 1px solid darkgreen;
     font-weight: 500;
@@ -89,7 +104,7 @@ button:hover::after {
     margin-right: 10px;
 }
 
-#selectAllButton {
+#addAllButton {
     margin-right: 5px;
 }
 
@@ -104,4 +119,27 @@ button:hover::after {
 img {
     max-width: 400px;
     height: auto;
+    border-radius: 10px;
+}
+
+.checkbox:unchecked {
+    border: solid darkgreen;
+}
+
+.checkbox:checked {
+    accent-color: darkseagreen;
+    border: solid darkgreen
+}
+
+#productsDiv {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+}
+
+.productDiv {
+    background: floralwhite;
+    margin: 10px;
+    padding: 10px;
+    border-radius: 15px;
+    border: 2px solid darkgreen;
 }

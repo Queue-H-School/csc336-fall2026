@@ -74,7 +74,7 @@ let renderHeader = function () {
             addPrice(products[x]);
         }
     });
-    headerDiv.appendChild(addAllButton);
+    cartDiv.appendChild(addAllButton);
 
     // add selected
     let addSelectedButton = document.createElement("button");
