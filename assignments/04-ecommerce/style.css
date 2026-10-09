@@ -1,0 +1,26 @@
+#title {
+    text-align: center;
+    text-size-adjust: 125%;
+}
+
+#subtitle {
+    text-align: center;
+    text-size-adjust: 75%;
+}
+
+.productTitleDiv {
+    display: flex;
+}
+
+.productCategoryDiv {
+    display: flex;
+}
+
+.checkbox {
+    margin-right: 10px;
+}
+
+img {
+    max-width: 400px;
+    height: auto;
+}
