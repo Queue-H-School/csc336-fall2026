@@ -133,4 +133,27 @@ interactiveElement.addEventListener(param, event => {
 	console.log("action");
 });
 ```
+
+## JavaScript Object Notation (JSON)
+`{}` holds objects  
+`"key": value` objects hold key-value pairs
+
+<u>JSON-JS Conversions</u>  
+`.stringify` converts JS objects to JSON  
+`JSON.parse(string)` converts JSON strings to JS
+
+```json
+object {
+	"key": value
+	"array": [0, 3, 4, 5]
+	"object2": {
+		"key": value
+		"string": "hello"
+	}
+}
+```
+
+## Input
+### Local Storage
 ## Classes
+
