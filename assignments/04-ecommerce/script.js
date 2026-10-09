@@ -1,9 +1,22 @@
-/* I don't know why my variables (totals and category selected) are not updating */
-
+// initialize divs
 let rootDiv = document.body.appendChild(document.createElement("div"));
 rootDiv.id = "root";
 
+let headerDiv = document.createElement("div");
+headerDiv.id = "header";
+rootDiv.appendChild(headerDiv);
+
+let allProductsDiv = document.createElement("div");
+allProductsDiv.id = "productsDiv";
+rootDiv.appendChild(allProductsDiv);
+
 document.body.style.background = "beige";
+
+// clear all
+let clearAllProducts = function () {
+    allProductsDiv.innerHTML = "";
+
+}
 
 // add to cart
 let totalPrice = 0;
@@ -32,7 +45,91 @@ let isChecked = function (product) {
 }
 
 // render
-let render = function (product) {
+let renderHeader = function () {
+    // title
+    let titleDiv = document.createElement("div");
+    titleDiv.id = "titleDiv";
+
+    let title = document.createElement("h1");
+    title.innerText = "The Dam Snack Bar";
+    title.id = "title";
+    titleDiv.appendChild(title);
+
+    // subtitle
+    let subtitle = document.createElement("h2");
+    subtitle.innerText = "at the Hoover Dam";
+    subtitle.id = "subtitle";
+    titleDiv.appendChild(subtitle);
+    headerDiv.appendChild(titleDiv);
+
+    // add all
+    let cartDiv = document.createElement("div");
+    cartDiv.id = "cartDiv";
+
+    let addAllButton = document.createElement("button");
+    addAllButton.id = "addAllButton";
+    addAllButton.innerHTML = "Add all to Cart";
+    addAllButton.addEventListener("click", e => {
+        for (let x = 0; x < products.length; x++) {
+            addPrice(products[x]);
+        }
+    });
+    headerDiv.appendChild(addAllButton);
+
+    // add selected
+    let addSelectedButton = document.createElement("button");
+    addSelectedButton.id = "addSelectedButton";
+    addSelectedButton.innerHTML = "Add Selected to Cart";
+    addSelectedButton.addEventListener("click", e => {
+        let selectedList = products.filter(product => isChecked(product));
+        selectedList.forEach(item => {
+            addPrice(item);
+            console.log(item.name);
+        });
+    })
+    cartDiv.appendChild(addSelectedButton);
+
+    // create cart
+    let total = document.createElement("p");
+    total.id = "cartTotal"
+    total.innerHTML = `Total: $${totalPrice.toFixed(2)} (${itemTotal} items)`;
+    cartDiv.appendChild(total);
+    headerDiv.appendChild(cartDiv);
+
+    headerDiv.appendChild(titleDiv);
+
+    /*let cartImg = document.createElement("img");
+    cartImg.id = "cartImg";
+    cartDiv.append(cartImg);
+    rootDiv.append(cartDiv);*/
+
+    // create dropdown
+    let dropDown = document.createElement("select");
+    dropDown.id = "dropDown";
+    dropDown.name = "dropDown";
+    let categoryList = ["All Categories", "Breakfast", "Beverages", "Candy", "Snacks", "Unspecified"];
+    categoryList.forEach(category => {
+        dropDown.add(new Option(category, category));
+    });
+    console.log(dropDown.options)
+
+    dropDown.addEventListener("click", e => {
+        let dropDown = document.querySelector(`#dropDown`);
+        let currentSelection = dropDown.options[dropDown.selectedIndex].text;
+        clearAllProducts()
+
+        // if category = "all categories", render all (except unspecified)
+        if (currentSelection === "All Categories") {
+            products.filter(product => product.category !== "Unspecified").forEach(product => renderProduct(product));
+        } else {
+            // else, render only that category
+            products.filter(product => product.category === currentSelection).forEach(product => renderProduct(product));
+        }
+    })
+    headerDiv.appendChild(dropDown);
+}
+
+let renderProduct = function (product) {
 
     let productDiv = document.createElement("div");
     productDiv.classList.add("productDiv");
@@ -82,7 +179,7 @@ let render = function (product) {
     if (typeof (product.price) === "number") {
         price.innerHTML = `<b>$${product.price.toFixed(2)}</b>`;
     } else {
-        price.innerHTML = product.price;
+        price.innerHTML = `<b>${product.price}</br>`;
     }
     categoryDiv.appendChild(price);
 
@@ -101,77 +198,8 @@ let render = function (product) {
     });
     productDiv.appendChild(addtoCart);
 
-    rootDiv.appendChild(productDiv);
+    allProductsDiv.appendChild(productDiv);
 }
-
-// title
-let titleDiv = document.createElement("div");
-titleDiv.id = "titleDiv";
-
-let title = document.createElement("h1");
-title.innerText = "The Dam Snack Bar";
-title.id = "title";
-titleDiv.appendChild(title);
-
-// subtitle
-let subtitle = document.createElement("h2");
-subtitle.innerText = "at the Hoover Dam";
-subtitle.id = "subtitle";
-titleDiv.appendChild(subtitle);
-rootDiv.appendChild(titleDiv);
-
-// add all
-let cartDiv = document.createElement("div");
-cartDiv.id = "cartDiv";
-
-let addAllButton = document.createElement("button");
-addAllButton.id = "addAllButton";
-addAllButton.innerHTML = "Add all to Cart";
-addAllButton.addEventListener("click", e => {
-    for (let x = 0; x < products.length; x++) {
-        addPrice(products[x]);
-    }
-});
-cartDiv.appendChild(addAllButton);
-
-// add selected
-let addSelectedButton = document.createElement("button");
-addSelectedButton.id = "addSelectedButton";
-addSelectedButton.innerHTML = "Add Selected to Cart";
-addSelectedButton.addEventListener("click", e => {
-    let selectedList = products.filter(product => isChecked(product));
-    selectedList.forEach(item => {
-        addPrice(item);
-        console.log(item.name);
-    });
-})
-cartDiv.appendChild(addSelectedButton);
-
-// create cart
-let total = document.createElement("p");
-total.id = "cartTotal"
-total.innerHTML = `Total: $${totalPrice.toFixed(2)} (${itemTotal} items)`;
-cartDiv.appendChild(total);
-rootDiv.appendChild(cartDiv);
-
-rootDiv.appendChild(titleDiv);
-
-/*let cartImg = document.createElement("img");
-cartImg.id = "cartImg";
-cartDiv.append(cartImg);
-rootDiv.append(cartDiv);*/
-
-// dropdown
-let dropDown = document.createElement("select");
-dropDown.id = "dropDown";
-dropDown.name = "dropDown";
-let categoryList = ["Filter Items By Category", "Breakfast", "Beverages", "Candy", "Snacks", "Unspecified"];
-categoryList.forEach(e => {
-    let option = document.createElement("option");
-    option.text = e;
-    dropDown.add(option);
-});
-rootDiv.appendChild(dropDown);
 
 // product list
 let products = [
@@ -298,8 +326,5 @@ let products = [
 ];
 
 // render
-products.filter(product => product.category !== "Unspecified").forEach(product => render(product));
-
-// filter items by dropdown
-let currentCategory = dropDown.options[dropDown.selectedIndex].text;
-products.filter(product => product.category === currentCategory).forEach(item => render(item));
+renderHeader()
+products.filter(product => product.category !== "Unspecified").forEach(product => renderProduct(product));
