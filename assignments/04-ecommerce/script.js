@@ -1,8 +1,9 @@
+/* I don't know why my variables (totals and category selected) are not updating */
+
 let rootDiv = document.body.appendChild(document.createElement("div"));
 rootDiv.id = "root";
 
-// requirements
-// sort, map
+document.body.style.background = "beige";
 
 // add to cart
 let totalPrice = 0;
@@ -19,8 +20,6 @@ let isChecked = function (product) {
 
 // render
 let render = function (product) {
-    // if dropbox is empty, filter out unspecified categoru
-    // else, filter to dropbox selection
 
     let productDiv = document.createElement("div");
     productDiv.classList.add("productDiv");
@@ -30,11 +29,10 @@ let render = function (product) {
     let titleDiv = document.createElement("div");
     titleDiv.classList.add("productTitleDiv");
 
-    let checkbox = document.createElement('input');
+    let checkbox = product.checkbox;
     checkbox.type = "checkbox";
     checkbox.classList.add("checkbox");
     titleDiv.appendChild(checkbox);
-    product.checkbox = checkbox;
 
     let title = document.createElement("h3");
     title.classList.add("productTitle");
@@ -92,20 +90,26 @@ let render = function (product) {
     rootDiv.appendChild(productDiv);
 }
 
-
 // title
+let titleDiv = document.createElement("div");
+titleDiv.id = "titleDiv";
+
 let title = document.createElement("h1");
 title.innerText = "The Dam Snack Bar";
 title.id = "title";
-rootDiv.appendChild(title);
+titleDiv.appendChild(title);
 
 // subtitle
 let subtitle = document.createElement("h2");
 subtitle.innerText = "at the Hoover Dam";
 subtitle.id = "subtitle";
-rootDiv.appendChild(subtitle);
+titleDiv.appendChild(subtitle);
+rootDiv.appendChild(titleDiv);
 
 // select all
+let cartDiv = document.createElement("div");
+cartDiv.id = "cartDiv";
+
 let selectAllButton = document.createElement("button");
 selectAllButton.id = "selectAllButton";
 selectAllButton.innerHTML = "Add all to Cart";
@@ -115,32 +119,41 @@ selectAllButton.addEventListener("click", e => {
         product.checkbox.checked = true;
     }
 });
-rootDiv.appendChild(selectAllButton);
+cartDiv.appendChild(selectAllButton);
 
 // add selected
 let addSelectedButton = document.createElement("button");
 addSelectedButton.id = "addSelectedButton";
 addSelectedButton.innerHTML = "Add Selected to Cart";
 addSelectedButton.addEventListener("click", e => {
-    let selectedList = products.filter(isChecked);
+    let selectedList = products.map(isChecked);
     selectedList.forEach(item => addPrice(item));
 })
-rootDiv.appendChild(addSelectedButton);
-
-// cart display
-let cartDiv = document.createElement("div");
-cartDiv.id = "cartDiv";
+cartDiv.appendChild(addSelectedButton);
 
 let total = document.createElement("p");
 total.innerHTML = `Total: $${totalPrice.toFixed(2)} (${itemTotal} items)`;
-cartDiv.append(total);
+cartDiv.appendChild(total);
+
 rootDiv.appendChild(cartDiv);
+rootDiv.appendChild(titleDiv);
 
 /*let cartImg = document.createElement("img");
 cartImg.id = "cartImg";
 cartDiv.append(cartImg);
 rootDiv.append(cartDiv);*/
 
+// dropdown
+let dropDown = document.createElement("select");
+dropDown.id = "dropDown";
+dropDown.name = "dropDown";
+let categoryList = ["Filter Items By Category", "Breakfast", "Beverages", "Candy", "Snacks", "Unspecified"];
+categoryList.forEach(e => {
+    let option = document.createElement("option");
+    option.text = e;
+    dropDown.add(option);
+});
+rootDiv.appendChild(dropDown);
 
 // product list
 let products = [
@@ -150,7 +163,8 @@ let products = [
         description: "Choice of Cheerios, Frosted Flakes, Froot Loops, and Raisin Bran. Milk sold separately.",
         price: 5.00,
         image: "./images/cereal.jpg",
-        category: "Breakfast"
+        category: "Breakfast",
+        checkbox: document.createElement("input")
     },
     eggsBacon = {
         name: "Eggs and Bacon",
@@ -158,7 +172,8 @@ let products = [
         description: "Only sold until 11am. Quality not garaunteed.",
         price: 6.00,
         image: "./images/eggsBacon.jpg",
-        category: "Breakfast"
+        category: "Breakfast",
+        checkbox: document.createElement("input")
     },
     milks = {
         name: "Milks",
@@ -166,7 +181,8 @@ let products = [
         description: "Choice of chocolate, whole, or skim milk.",
         price: 2.00,
         image: "./images/milks.jpg",
-        category: "Beverages"
+        category: "Beverages",
+        checkbox: document.createElement("input")
     },
     sodaFountain = {
         name: "Soda Fountain",
@@ -174,7 +190,8 @@ let products = [
         description: "Pepsi Soda Fountain.",
         price: 2.50,
         image: "./images/sodaFountain.jpg",
-        category: "Beverages"
+        category: "Beverages",
+        checkbox: document.createElement("input")
     },
     energyDrink = {
         name: "Energy Drink",
@@ -182,7 +199,8 @@ let products = [
         description: "Sold out of your preferred brand.",
         price: 5.00,
         image: "./images/energyDrinks.jpg",
-        category: "Beverages"
+        category: "Beverages",
+        checkbox: document.createElement("input")
     },
     coffee = {
         name: "Coffee",
@@ -190,7 +208,8 @@ let products = [
         description: "Lukewarm.",
         price: 2.50,
         image: "./images/coffee.jpg",
-        category: "Beverages"
+        category: "Beverages",
+        checkbox: document.createElement("input")
     },
     chips = {
         name: "Chips",
@@ -198,7 +217,8 @@ let products = [
         description: "The elevation makes the bags really puffy.",
         price: 2.50,
         image: "./images/chips.jpg",
-        category: "Snacks"
+        category: "Snacks",
+        checkbox: document.createElement("input")
     },
     candy = {
         name: "Movie Candies",
@@ -206,7 +226,8 @@ let products = [
         description: "Skittles, M&Ms, Snickers, Twix, 3 Musketeers, Hershey's Bar, Twizzlers, Junior Mints, Mike and Ike's.",
         price: 1.50,
         image: "./images/candy.jpg",
-        category: "Candy"
+        category: "Candy",
+        checkbox: document.createElement("input")
     },
     neccoWafers = {
         name: "Necco Wafers",
@@ -214,7 +235,8 @@ let products = [
         description: "We bought a few bulk cases in 1993. Our mistake.",
         price: 0.05,
         image: "./images/neccoWafers.webp",
-        category: "Candy"
+        category: "Candy",
+        checkbox: document.createElement("input")
     },
     beefJerky = {
         name: "Beef Jerky",
@@ -222,7 +244,8 @@ let products = [
         description: "Your choice of \"Siracha\", \"Sweet Jalapeno\", \"Teriyaki\". and normal.",
         price: 5.00,
         image: "./images/beefJerky.jpg",
-        category: "Snacks"
+        category: "Snacks",
+        checkbox: document.createElement("input")
     },
     cashews = {
         name: "Cashews",
@@ -230,7 +253,8 @@ let products = [
         description: "Your choice of \"Dill Pickle\", \"Cinnamon and Brown Sugar\", or \"Rosemary and Sea Salt\".",
         price: 3.00,
         image: "./images/cashews.jpg",
-        category: "Snacks"
+        category: "Snacks",
+        checkbox: document.createElement("input")
     },
     rxBars = {
         name: "RX Bars",
@@ -238,7 +262,8 @@ let products = [
         description: "We sell RX Bars.",
         price: 4.00,
         image: "./images/rxBars.jpg",
-        category: "Snacks"
+        category: "Snacks",
+        checkbox: document.createElement("input")
     },
     angelStatues = {
         name: "Angel Statues",
@@ -246,7 +271,8 @@ let products = [
         description: "Just two big bronze statues. Nothing special about them. Rub their toes for good luck!",
         price: "Not Available for Sale",
         image: "./images/angelStatues.jpg",
-        category: "Unspecified"
+        category: "Unspecified",
+        checkbox: document.createElement("input")
     },
     spartoi = {
         name: "Two Dudes",
@@ -254,7 +280,8 @@ let products = [
         description: "A couple of uniformed men who are definitely here on official business.",
         price: "Do Not Approach",
         image: "./images/spartoi.jpg",
-        category: "Unspecified"
+        category: "Unspecified",
+        checkbox: document.createElement("input")
     },
     ophiotaurus = {
         name: "Bessie",
@@ -262,9 +289,14 @@ let products = [
         description: "Ophiotaurus (Serpeant Bull).",
         price: "Please do not sacrifice his entrails as tribute for power.",
         image: "./images/ophiotaurus.jpg",
-        category: "Unspecified"
+        category: "Unspecified",
+        checkbox: document.createElement("input")
     }
 ];
 
 // render
 products.filter(product => product.category !== "Unspecified").forEach(product => render(product));
+
+// filter items by dropdown
+let currentCategory = dropDown.options[dropDown.selectedIndex].text;
+products.filter(product => product.category === currentCategory).forEach(item => render(item));
