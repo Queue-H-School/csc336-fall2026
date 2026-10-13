@@ -1,0 +1,156 @@
+h1 {
+    font-family: Verdana, sans-serif;
+    color: darkgreen;
+}
+
+h2 {
+    font-family: Verdana, sans-serif;
+    color: darkgreen;
+}
+
+h3 {
+    font-family: Verdana, sans-serif;
+    color: darkgreen;
+}
+
+p {
+    font-family: Verdana, sans-serif;
+}
+
+img {
+    border: 2px solid darkgreen;
+}
+
+.formInput {
+    display: block;
+}
+
+#formDiv {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    background: beige;
+    z-index: 1000;
+    padding: 15px;
+    border-radius: 5px;
+    border: darkgreen solid 2px;
+}
+
+.formInput {
+    margin: 5px;
+    justify-content: left;
+}
+
+#inventorySelect {
+    margin-left: 5px;
+}
+
+/* From Uiverse.io by cssbuttons-io */
+button {
+    font-family: Verdana, sans-serif;
+    position: relative;
+    padding: 0.5em 0.75em;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: all 0.2s;
+    border: 1px solid darkgreen;
+    font-weight: 500;
+    color: black;
+    background-color: darkseagreen;
+}
+
+button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+button:active {
+    transform: translateY(-1px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+button::after {
+    content: "";
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+    border-radius: 100px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    transition: all 0.4s;
+}
+
+button::after {
+    background-color: darkseagreen;
+}
+
+button:hover::after {
+    transform: scaleX(1.4) scaleY(1.6);
+    opacity: 0;
+}
+
+#title {
+    text-align: center;
+    text-size-adjust: 125%;
+}
+
+#subtitle {
+    text-align: center;
+    text-size-adjust: 75%;
+}
+
+.productTitleDiv {
+    display: flex;
+}
+
+.productCategoryDiv {
+    display: flex;
+}
+
+.checkbox {
+    margin-right: 10px;
+}
+
+#addAllButton {
+    margin-right: 5px;
+}
+
+#addSelectedButton {
+    margin-right: 7px;
+}
+
+#cartDiv {
+    float: right;
+}
+
+img {
+    max-width: 400px;
+    height: auto;
+    border-radius: 10px;
+}
+
+.checkbox:unchecked {
+    border: solid darkgreen;
+}
+
+.checkbox:checked {
+    accent-color: darkseagreen;
+    border: solid darkgreen
+}
+
+#productsDiv {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+}
+
+.productDiv {
+    background: floralwhite;
+    margin: 10px;
+    padding: 10px;
+    border-radius: 15px;
+    border: 2px solid darkgreen;
+}
