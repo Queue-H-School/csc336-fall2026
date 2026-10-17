@@ -416,9 +416,9 @@ let renderAddInventory = function () {
         event.preventDefault();
         let form = new FormData(inventoryForm, submitInput);
 
-        // entries() iterator needs to be an array
+        // values() iterator needs to be an array
         let values = [...form.values()];
-        
+
         if (validateForm(values)) {
             formToProduct(event, values);
         } else {
