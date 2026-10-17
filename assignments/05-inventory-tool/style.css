@@ -21,12 +21,19 @@ img {
     border: 2px solid darkgreen;
 }
 
-.formInput {
-    display: block;
+#errorMsg {
+    color: black;
+    font-size: x-small;
+}
+
+#formHeading {
+    font-size: medium;
+    text-align: center;
 }
 
 #formDiv {
-    position: absolute;
+    width: min-content;
+    position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -38,9 +45,10 @@ img {
     border: darkgreen solid 2px;
 }
 
+
 .formInput {
+    display: block;
     margin: 5px;
-    justify-content: left;
 }
 
 #inventorySelect {
@@ -123,8 +131,17 @@ button:hover::after {
     margin-right: 7px;
 }
 
+#superheaderDiv {
+    display: inline;
+}
+
 #cartDiv {
-    float: right;
+    text-align: right;
+    padding-left: 15em;
+}
+
+#addNewProductDiv {
+    float: left;
 }
 
 img {
