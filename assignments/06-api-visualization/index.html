@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>IP Meta</title>
+
+		<link rel="stylesheet" href="style.css">
+
+		<!-- import leaflet-->
+		<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+			  integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+		<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+				integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+	</head>
+	<body>
+		<div id="headerDiv">
+			<h1>CLOUDFLARE TRACE</h1>
+			<p id="ipText">- - - - -</p>
+		</div>
+		<div id="contentDiv">
+			<div id="mapDiv"></div>
+			<div id="p5CanvasDiv"></div>
+		</div>
+
+		<!-- import p5 -->
+		<script src="https://cdn.jsdelivr.net/npm/p5@2.3.3/lib/p5.min.js"></script>
+
+		<script src="script.js"></script>
+	</body>
+</html>

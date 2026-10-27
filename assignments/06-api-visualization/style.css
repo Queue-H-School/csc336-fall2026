@@ -1,0 +1,44 @@
+p {
+    font-family: monospace;
+    text-align: center;
+    color: #CCCCCC;
+}
+
+h1 {
+    font-family: monospace;
+    text-align: center;
+    color: #CCCCCC;
+}
+
+#headerDiv {
+    margin-bottom: 15px;
+}
+
+#headerDiv p {
+    color: #CB4C4E;
+    margin: 2px;
+}
+
+#headerDiv h1 {
+    margin: 15px;
+    margin-bottom: 10px;
+}
+
+
+#mapDiv {
+    height: 600px;
+    width: 600px;
+}
+
+#contentDiv {
+    display: flex;
+    justify-content: center;
+}
+
+#mapDiv {
+    padding: 10px;
+}
+
+#p5CanvasDiv {
+    padding: 10px;
+}

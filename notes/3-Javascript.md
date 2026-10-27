@@ -134,7 +134,9 @@ interactiveElement.addEventListener(param, event => {
 });
 ```
 
-## JavaScript Object Notation (JSON)
+## Input
+## Local Storage
+### JavaScript Object Notation (JSON)
 `{}` holds objects  
 `"key": value` objects hold key-value pairs
 
@@ -153,7 +155,25 @@ object {
 }
 ```
 
-## Input
-### Local Storage
+## Asynchronous JS
+
+### Promises
+<u>Resolve</u>
+\- determines whether the promise has been fulfilled
+\- usually if, eventListener, setTimeout
+
+```js
+function doSomething(param) {
+	return new Promise((resolve) => {
+		// determines whether promise has been "fulfilled"
+		if (resolve === "condition");
+	});
+}
+doSomething("hello").then( () => {
+	// what to do when the resolve finishes
+	console.log("Do Something");
+});
+```
+
 ## Classes
 
