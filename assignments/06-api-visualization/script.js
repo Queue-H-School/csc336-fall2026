@@ -20,6 +20,21 @@ let ipObj;
 
 document.body.style.background = "black";
 
+// returns [date, time]
+function getDate() {
+    let date = new Date(Date.now());
+    let options = {
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+    };
+    let dateStr = date.toLocaleDateString(undefined, options);
+    let timeStr = date.toLocaleTimeString();
+
+    return [dateStr, timeStr];
+}
+
 async function getIP() {
     // api call
     let response = await fetch(URL);
@@ -54,24 +69,67 @@ async function leaflet() {
         // no need for attribution bc this is not production
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(map);
+
+    // popup
+    var popup = L.popup()
+        .setLatLng(L.latLng(Number(ipObj.latitude), Number(ipObj.longitude)))
+        .setContent(`<p>(${ipObj.latitude}, ${ipObj.longitude})</p>`)
+        .openOn(map);
 }
 
 leaflet();
 
 // p5 setup (runs once automatically)
-async function setup() {
-    // run after cloudflare trace resolves
-    await getIP();
+async function displayInfo() {
 
-    let canvas = createCanvas(600, 625);
-    canvas.parent("contentDiv");
+    let infoDiv = document.getElementById('infoDiv');
+    infoDiv.style.background = "#373737"
 
-    textFont('Space Mono');
+
+    // get datetime
+    let datetime = getDate();
+    let dateElement = document.getElementById('datetime');
+    dateElement.innerHTML = `${datetime[0]}\n${datetime[1]}`;
+
+    // get location
+    let location = document.getElementById('location');
+    location.innerHTML = `${ipObj.city}, ${ipObj.region}, ${ipObj.country}`;
+
+    // get organization
+    let organization = document.getElementById('organization');
+    organization.innerHTML = `${ipObj.asOrganization}`;
+
 }
+
+async function main() {
+    // repeatedly run after cloudflare trace resolves
+    await getIP();
+    setInterval(displayInfo, 1000);
+}
+
+main()
 
 // p5 draw (runs once per second automatically)
 function draw() {
+
+    // p5 design constants
+    let textWhite = color(204); // same as #CCCCCC
+    let textMedium = 24;
+    let mutedRed = color(203, 76, 78);
+
     background(50);
+
+    textFont('Space Mono');
+
+    // info outline
+    fill(mutedRed)
+
+
+    text(`${dateStr}`, 10, 35)
+
+    // data display text
+    fill(textWhite)
+    textSize(textMedium)
 
 
 }

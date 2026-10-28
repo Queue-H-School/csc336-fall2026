@@ -24,10 +24,17 @@ h1 {
     margin-bottom: 10px;
 }
 
+#infoDiv {
+    width: 600px;
+    height: 620px;
+    margin: 10px;
+}
+
 
 #mapDiv {
     height: 600px;
     width: 600px;
+    margin: 10px;
 }
 
 #contentDiv {
