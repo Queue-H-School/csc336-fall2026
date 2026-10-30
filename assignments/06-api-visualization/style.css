@@ -13,6 +13,10 @@ h1 {
     color: #CB4C4E;
 }
 
+.leaflet-popup-content p {
+    color: #000000;
+}
+
 .label {
     font-weight: bold;
     color: #CCCCCC;
@@ -26,7 +30,7 @@ h1 {
 
 #datetimeDiv {
     display: flex;
-    margin: 15px;
+    margin: 20px;
     justify-content: center;
     font-weight: bold;
 }
@@ -69,4 +73,9 @@ h1 {
 
 #mapDiv {
     padding: 10px;
+}
+
+#ipText {
+    font-size: large;
+    font-weight: bold;
 }

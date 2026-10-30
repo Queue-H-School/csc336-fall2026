@@ -40,6 +40,7 @@ let uaObj;
  */
 
 document.body.style.background = "black";
+let darkGray = "#272727";
 
 // replace dashes in organization
 function replacePunctuation(string) {
@@ -125,7 +126,7 @@ leaflet();
 async function displayInfo() {
 
     let infoDiv = document.getElementById('infoDiv');
-    infoDiv.style.background = "#373737"
+    infoDiv.style.background = darkGray;
 
     // get datetime
     let datetime = getDate();
@@ -162,6 +163,13 @@ async function displayInfo() {
     let deviceElement = document.getElementById('device');
     deviceElement.innerHTML = `${uaObj.browser} on ${uaObj.os} ${uaObj.device_type}`;
 
+    // get versions
+    let osVersionElement = document.getElementById('osVersion');
+    osVersionElement.innerHTML = `${uaObj.os} version: ${uaObj.os_version}`;
+
+    let browserVersionElement = document.getElementById('browserVersion');
+    browserVersionElement.innerHTML = `${uaObj.browser} version: ${uaObj.browser_version}`;
+
     // get bot status
     let botElement = document.getElementById('bot');
     botElement.innerHTML = `Bot: ${uaObj.is_bot}`;
@@ -175,28 +183,3 @@ async function main() {
 }
 
 main()
-
-// p5 draw (runs once per second automatically)
-function draw() {
-
-    // p5 design constants
-    let textWhite = color(204); // same as #CCCCCC
-    let textMedium = 24;
-    let mutedRed = color(203, 76, 78);
-
-    background(50);
-
-    textFont('Space Mono');
-
-    // info outline
-    fill(mutedRed)
-
-
-    text(`${dateStr}`, 10, 35)
-
-    // data display text
-    fill(textWhite)
-    textSize(textMedium)
-
-
-}
