@@ -16,14 +16,29 @@
 	<body>
 		<div id="headerDiv">
 			<h1>CLOUDFLARE TRACE</h1>
-			<p id="ipText">- - - - -</p>
+			<p id="ipText" class="redText">- - - - -</p>
 		</div>
 		<div id="contentDiv">
 			<div id="mapDiv"></div>
 			<div id="infoDiv">
-				<p id="datetime"></p>
-				<p id="organization"></p>
-				<p id="location"></p>
+				<div id="datetimeDiv">
+					<p id="date"></p>
+					<p id="time" class="redText"></p>
+				</div>
+				<div id="deviceDiv" class="infoDiv">
+					<p class="label">Device Information</p>
+					<p id="device" class="redText"></p>
+				</div>
+				<div id="hostDiv" class="infoDiv">
+					<p class="label">Host Information</p>
+					<p id="location" class="redText"></p>
+					<p id="organization"></p>
+				</div>
+				<div id="broswerDiv" class="infoDiv">
+					<p class="label">Browser Information</p>
+					<p id="bot"></p>
+					<p id="tor"></p>
+				</div>
 			</div>
 		</div>
 
