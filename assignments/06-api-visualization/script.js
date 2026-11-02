@@ -3,23 +3,23 @@ let ipObj;
 
 /* trace
 {
-  "ip": "149.88.18.205",
-  "city": "Ashburn",
-  "region": "Virginia",
-  "country": "US",
-  "continent": "NA",
-  "latitude": "39.04372",
-  "longitude": "-77.48749",
-  "postal": "20147",
-  "timezone": "America/New_York",
-  "asn": 212238,
-  "org": "Datacamp Limited",
-  "currency": "USD",
-  "language": "en",
-  "is_eu": false,
+  "ip": "",
+  "city": "",
+  "region": "",
+  "country": "",
+  "continent": "",
+  "latitude": "",
+  "longitude": "",
+  "postal": "",
+  "timezone": "",
+  "asn": ,
+  "org": "",
+  "currency": "",
+  "language": "",
+  "is_eu": ,
   "tor": {
-    "checked": true,
-    "is_tor": false
+    "checked": ,
+    "is_tor":
   }
 }
 */
@@ -28,14 +28,14 @@ let UA_URL = "https://presend.pages.dev/api/user-agent";
 let uaObj;
 /* presend user-agent
 {
-  "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:158.0) Gecko/20100101 Firefox/158.0",
+  "user_agent": "",
   "parsed": {
-    "browser": "Firefox",
-    "browser_version": "158.0",
-    "os": "macOS",
-    "os_version": "10",
-    "device_type": "desktop",
-    "is_bot": false
+    "browser": "",
+    "browser_version": "",
+    "os": "",
+    "os_version": "",
+    "device_type": "",
+    "is_bot":
   }
  */
 
@@ -44,13 +44,15 @@ let darkGray = "#272727";
 
 // replace dashes in organization
 function replacePunctuation(string) {
+    console.log("replacePunctuation");
     // \w did not cover dashes for some reason
     let nonalpha = new RegExp("[^A-Za-z0-9]", "g");
     return string.replaceAll(nonalpha, " ");
 }
 
-// returns [date, time]
+// updates datetime in infoDiv
 function getDate() {
+    console.log("getDate");
     let date = new Date(Date.now());
     let dateOptions = {
         weekday: "long",
@@ -64,10 +66,16 @@ function getDate() {
     let dateStr = date.toLocaleDateString(undefined, dateOptions);
     let timeStr = date.toLocaleTimeString(undefined, timeOptions);
 
-    return [dateStr, timeStr];
+    let dateElement = document.getElementById('date');
+    dateElement.innerHTML = dateStr;
+
+    let timeElement = document.getElementById('time');
+    timeElement.innerHTML = timeStr;
+
 }
 
 async function getTrace() {
+    console.log("IP API");
     // api call
     let response = await fetch(IP_URL);
 
@@ -77,6 +85,7 @@ async function getTrace() {
 }
 
 async function getPresend() {
+    console.log("UA API");
     // api call
     let response = await fetch(UA_URL);
 
@@ -87,18 +96,15 @@ async function getPresend() {
 }
 
 // update header
-async function updateHeader() {
-    await getTrace();
+function updateHeader() {
+    console.log("updateHeader");
     ipText = document.querySelector("#ipText");
     ipText.innerHTML = ipObj.ip;
 }
 
-updateHeader();
-
 // leaflet
-async function leaflet() {
-    // run after cloudflare trace resolves
-    await getTrace();
+function leaflet() {
+    console.log("leaflet");
 
     // init map
     let map = L.map('mapDiv', {
@@ -120,24 +126,12 @@ async function leaflet() {
         .openOn(map);
 }
 
-leaflet();
-
 // p5 setup (runs once automatically)
-async function displayInfo() {
+function displayInfo() {
+    console.log("displayInfo");
 
     let infoDiv = document.getElementById('infoDiv');
     infoDiv.style.background = darkGray;
-
-    // get datetime
-    let datetime = getDate();
-    let date = datetime[0];
-    let time = datetime[1];
-
-    let dateElement = document.getElementById('date');
-    dateElement.innerHTML = date;
-
-    let timeElement = document.getElementById('time');
-    timeElement.innerHTML = time;
 
     // ip obj
     // get location
@@ -176,10 +170,14 @@ async function displayInfo() {
 }
 
 async function main() {
-    // repeatedly run after cloudflare trace resolves
+    // repeatedly run
+    setInterval(getDate, 1000);
+
     await getTrace();
+    updateHeader();
+    leaflet();
     await getPresend();
-    setInterval(displayInfo, 1000);
+    displayInfo();
 }
 
 main()
