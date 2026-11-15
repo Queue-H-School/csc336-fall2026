@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>9-18-2026</title>
+		<style>
+            #demo-dev {
+                background: darkolivegreen;
+            }
+		</style>
+	</head>
+
+	<!-- can cram js anywhere -->
+	<script>
+        let foo = 10;
+	</script>
+
+	<body>
+		<div id="demo-div">
+			Div content
+		</div>
+		<!-- best to do it at the bottom -->
+		<script>
+            console.log("hello world");
+
+            let sum = 29;
+            if (sum > 20) {
+                console.log(sum + " is greater than 20");
+            } else {
+                console.log(sum + " is less than or equal to 20");
+            }
+
+            for (let i = 0; i < 10; i++) {
+                console.log(i);
+            }
+
+            function add3(a, b, c) {
+                let sum1 = a + b + c;
+                // do not have to return something (return undefined)
+                return sum1;
+            }
+
+            sum = add3(2, 3, 9);
+
+            // create undefined object
+            let obj = {};
+            obj.log = function (x) {
+                console.log(x);
+            }
+
+            let demoDiv = document.getElementById("#demo-div");
+            demoDiv.innerHTML = "new content";
+
+            let rand = Math.random();
+            let newDiv = document.createElement("div");
+            newDiv.innerHTML = rand;
+            demoDiv.append(newDiv);
+
+		</script>
+
+	</body>
+</html>

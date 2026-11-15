@@ -158,8 +158,8 @@ object {
 ## Asynchronous JS
 
 ### Promises
-<u>Resolve</u>
-\- determines whether the promise has been fulfilled
+<u>Resolve</u>  
+\- determines whether the promise has been fulfilled  
 \- usually if, eventListener, setTimeout
 
 ```js

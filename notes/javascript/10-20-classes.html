@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>10-20 Classes</title>
+	</head>
+	<body>
+		<script>
+            class MyArray {
+                constructor() {
+                    this.arr = [];
+                    this.length = 0;
+                }
+
+                push(val) {
+                    this.arr.push(val);
+                    this.length++;
+                }
+
+                get(index) {
+                    return this.arr[index];
+                }
+
+                forEach(func) {
+                    for (let i = 0; i < this.arr.length; i++) {
+                        func(this.arr[i]);
+                    }
+                }
+
+                filter(func) {
+                    let newArr = [];
+                    for (let i = 0; i < this.arr.length; i++) {
+                        if (func(this.arr[i])) {
+                            newArr.push(this.arr[i]);
+                        }
+                    }
+                    this.arr = newArr;
+                }
+
+                map(func) {
+                    let newArr = [];
+                    for (let i = 0; i < this.arr.length; i++) {
+                        let newElement = func(this.arr[i]);
+                        newArr.push(newElement);
+                    }
+                    this.arr = newArr;
+                }
+            }
+
+            document.addEventListener("DOMContentLoaded", () => {
+                let myArr = new MyArray();
+                myArr.push(5);
+                myArr.push(2)
+                myArr.push(32);
+                myArr.push(-5);
+                myArr.push(13);
+                console.log("Initial")
+                myArr.forEach(console.log)
+
+                myArr.filter(function (element) {
+                    return element > 3;
+                })
+                console.log("After filter() > 3")
+                myArr.forEach(console.log)
+
+
+                myArr.map(function (element) {
+                    return element % 5;
+                })
+                console.log("After map() % 5")
+                myArr.forEach(console.log)
+            });
+		</script>
+	</body>
+</html>
