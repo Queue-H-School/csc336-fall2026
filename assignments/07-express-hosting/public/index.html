@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>Airport Info</title>
+		<link rel="stylesheet" href="style.css">
+	</head>
+	<body>
+		<div id="rootDiv">
+			<div id="headerDiv">
+				<h1 id="titleText">Airports by Country</h1>
+				<p id="attribution" class="redText">Information courtesy of airportsapi.com and nominatim.org</p>
+			</div>
+			<div id="mainDiv">
+				<div id="queryDiv">
+					<h2>Search for a Country</h2>
+					<p id="disclaimer">Recommend searching for a country other than US (UK, MX, DE, IN, and NZ are good
+						options), to avoid violating Nominatim's strict usage policies.</p>
+					<form id="countryForm">
+						<input type="text" id="countryInput" value="Country Code">
+						<input type="submit" value="Submit">
+					</form>
+				</div>
+				<div id="resultsDiv"></div>
+			</div>
+		</div>
+		<script src="script.js"></script>
+	</body>
+</html>

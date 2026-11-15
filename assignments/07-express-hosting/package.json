@@ -1,0 +1,17 @@
+{
+  "name": "07-express-hosting",
+  "version": "1.0.0",
+  "description": "Having some fun with an airport info API!",
+  "license": "ISC",
+  "author": "Quinn",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "test": "node server.js",
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^5.3.0"
+  },
+  "devDependencies": {}
+}

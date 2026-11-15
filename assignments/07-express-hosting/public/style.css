@@ -1,0 +1,57 @@
+p {
+    font-family: monospace;
+    color: #CCCCCC;
+}
+
+h1 {
+    font-family: monospace;
+    text-align: center;
+    color: #CCCCCC;
+}
+
+h2 {
+    font-family: monospace;
+    color: #CCCCCC;
+    margin: 0;
+}
+
+h3 {
+    font-family: monospace;
+    text-align: center;
+    color: #CCCCCC;
+}
+
+#resultsDiv {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+}
+
+#queryDiv {
+    margin: 10px;
+    margin-top: 30px;
+    padding: 10px;
+    width: 500px;
+    background-color: #203544;
+    border-radius: 10px;
+}
+
+.airportTile {
+    background-color: #203544;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 10px;
+}
+
+.redText {
+    color: #c52124;
+    font-weight: bold;
+}
+
+.tileTitle {
+    color: #9CE2EC;
+}
+
+#attribution {
+    text-align: center;
+    font-weight: normal;
+}
