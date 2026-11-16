@@ -5,20 +5,23 @@ document.body.style.background = "#001524";
 // writing to local storage would be helpful, but gets a little more complicated than id like
 // set up some sort of database to hold a list of objects per country
 // before fetching from apis, check database first
+
+// this list doesn't clear on form re-submit
 let airportList = [];
 
+// the airport api doesn't give as much info as i wanted--no city/state/country, no avg num flights, no date opened :(
+// so we'll go to my beloved nominatim for basic location data
 let GEOSEARCH = "https://nominatim.openstreetmap.org/reverse?format=jsonv2&layer=address&";
 
 class Airport {
     constructor(data, location, latlng) {
-
         this.name = data.attributes.name;
         this.iata = data.attributes.iata_code;
         this.latlng = latlng;
         this.type = fromCamelCase(data.attributes.type);
 
         // if no location (429 violation), then just skip it
-        this.locationFlag = location ? true : false;
+        this.locationFlag = !!location; // simplified from location ? true : false at ide suggestion
         if (this.locationFlag) {
             if (!location.address.city) {
                 this.city = "";
@@ -45,7 +48,7 @@ class Airport {
         tileDiv.appendChild(title);
 
         let iata = document.createElement("p");
-        iata.classList.add("redText");
+        iata.classList.add("redText", "iataCode");
         iata.innerHTML = this.iata;
         tileDiv.appendChild(iata);
 
@@ -95,6 +98,10 @@ async function main() {
     let countryForm = document.getElementById("countryForm");
     countryForm.addEventListener('submit', async e => {
         e.preventDefault();
+
+        // clear prior results
+        resultsDiv.innerText = "";
+
         let country = document.getElementById("countryInput").value;
         await getCountryAirports(country);
     });
@@ -120,7 +127,7 @@ async function parseResultList(resultList) {
             location = await coordInfo(latlng);
 
             // catch violation
-            if (location.status === 429) {
+            if (!location) {
                 console.log("Too many Nominatim requests. Location data will not be loaded.")
                 violationFlag = true;
             }
@@ -135,13 +142,13 @@ async function parseResultList(resultList) {
 // get coord info
 async function coordInfo(latlng) {
     // fetch in front-end to prevent bulk-download CORS block
-    let resLocation = await fetch(GEOSEARCH + `lat=${latlng.lat}&lon=${latlng.lon}`);
-    // catch usage overload
-    // TODO: this isn't working whyyyyy
-    if (resLocation.status === 429) {
+    try {
+        let resLocation = await fetch(GEOSEARCH + `lat=${latlng.lat}&lon=${latlng.lon}`);
+        return await resLocation.json();
+    } catch (error) {
+        // catch usage overload
         return false;
     }
-    return await resLocation.json();
 }
 
 // search by country
