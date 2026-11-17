@@ -92,20 +92,17 @@ function fromCamelCase(str) {
 
 }
 
-async function main() {
+// get results
+let countryForm = document.getElementById("countryForm");
+countryForm.addEventListener('submit', async e => {
+    e.preventDefault();
 
-    // get results
-    let countryForm = document.getElementById("countryForm");
-    countryForm.addEventListener('submit', async e => {
-        e.preventDefault();
+    // clear prior results
+    resultsDiv.innerText = "";
 
-        // clear prior results
-        resultsDiv.innerText = "";
-
-        let country = document.getElementById("countryInput").value;
-        await getCountryAirports(country);
-    });
-}
+    let country = document.getElementById("countryInput").value.toUpperCase();
+    await getCountryAirports(country);
+});
 
 // adds results to list as an object
 async function parseResultList(resultList) {
