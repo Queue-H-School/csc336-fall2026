@@ -1,7 +1,10 @@
 import express from "express";
+import "dotenv/config";
 
 const app = express();
 const port = process.env.PORT || 3000;
+
+const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 
 app.use(express.static("public"))
 app.use(express.json());

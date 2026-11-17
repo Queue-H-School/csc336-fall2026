@@ -3,6 +3,9 @@ notes/Course-Overview.md
 .idea/
 .obsidian/
 
+# keep secrets
+**/secrets.json
+
 # Logs
 logs
 *.log
