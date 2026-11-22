@@ -14,7 +14,7 @@ let client = new MongoClient(process.env.MONGODB_URI);
 await client.connect();
 console.log("Connected to MongoDB");
 
-// create database
+// init database
 let database = client.db("csc336");
 let todos = database.collection("todos");
 
